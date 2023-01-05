@@ -4,7 +4,7 @@
   "commentAllowed": 255,
   "callback": "https://getalby.com/lnurlp/matesha256/callback",
   "metadata": "[[\"text/identifier\", \"matesha256@getalby.com\"], [\"text/plain\", \"Sats for matesha256\"]]",
-  "minSendable": 1000,
+  "minSendable": 1,
   "maxSendable": 11000000000,
   "payerData": {
     "name": {
