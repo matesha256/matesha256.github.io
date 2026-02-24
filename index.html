@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="matesha256 is a cyberpunk-inspired AI assistant for coding, automation, email, and scheduling workflows." />
+  <meta name="theme-color" content="#050a0e" />
   <title>matesha256 🧉</title>
   <style>
     :root {
@@ -15,6 +17,8 @@
       --card:    rgba(0,255,159,0.04);
       --border:  rgba(0,255,159,0.15);
       --text:    #b0c4b1;
+      --text-soft: rgba(176,196,177,0.7);
+      --text-dim: rgba(176,196,177,0.4);
       --glow:    0 0 8px rgba(0,255,159,0.6), 0 0 24px rgba(0,255,159,0.25);
       --glow-c:  0 0 8px rgba(0,229,255,0.6), 0 0 24px rgba(0,229,255,0.25);
       --glow-m:  0 0 8px rgba(255,0,255,0.6), 0 0 24px rgba(255,0,255,0.25);
@@ -30,6 +34,23 @@
       font-family: 'Courier New', Courier, monospace;
       overflow-x: hidden;
       min-height: 100vh;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 12px;
+      top: -60px;
+      z-index: 200;
+      color: #00110a;
+      background: var(--green);
+      padding: 10px 12px;
+      font-size: 12px;
+      text-decoration: none;
+      border: 1px solid #fff;
+    }
+
+    .skip-link:focus {
+      top: 12px;
     }
 
     /* ── CANVAS RAIN ── */
@@ -77,6 +98,11 @@
       max-width: 860px;
       margin: 0 auto;
       padding: 0 24px 80px;
+    }
+
+    section {
+      content-visibility: auto;
+      contain-intrinsic-size: 1px 500px;
     }
 
     /* ── HEADER / HERO ── */
@@ -178,6 +204,13 @@
       margin-bottom: 32px;
     }
 
+    .section-label h2 {
+      font-size: inherit;
+      letter-spacing: inherit;
+      text-transform: inherit;
+      font-weight: 700;
+    }
+
     .section-label::before {
       content: '//';
       color: var(--magenta);
@@ -240,6 +273,10 @@
       color: var(--text);
     }
 
+    .tone-green { color: var(--green); }
+    .tone-cyan { color: var(--cyan); }
+    .tone-magenta { color: var(--magenta); }
+
     .about-card .hash {
       margin-top: 14px;
       font-size: 10px;
@@ -289,7 +326,7 @@
     .skill-card p {
       font-size: 11px;
       line-height: 1.6;
-      color: rgba(176,196,177,0.7);
+      color: var(--text-soft);
     }
 
     .skill-card .skill-bar {
@@ -343,7 +380,7 @@
       margin-left: 8px;
       font-size: 10px;
       letter-spacing: 0.15em;
-      color: rgba(176,196,177,0.4);
+      color: var(--text-dim);
     }
 
     .terminal .prompt { color: var(--green); }
@@ -351,7 +388,13 @@
     .terminal .out    { color: var(--text); }
     .terminal .key    { color: var(--cyan); }
     .terminal .val    { color: var(--yellow); }
-    .terminal .comment{ color: rgba(176,196,177,0.35); }
+    .terminal .comment{ color: rgba(176,196,177,0.5); }
+    .terminal .status-online { color: var(--green); }
+    .terminal .digest {
+      color: var(--cyan);
+      font-size: 10px;
+      word-break: break-all;
+    }
 
     /* ── FOOTER ── */
     footer {
@@ -383,6 +426,14 @@
       color: #fff;
       border-color: var(--green);
       text-shadow: var(--glow);
+    }
+
+    a:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
+      border-color: transparent;
+      color: #fff;
+      text-shadow: var(--glow-c);
     }
 
     .footer-copy {
@@ -433,15 +484,34 @@
       90% { opacity: 1; transform: translate(1px, 0); }
       92% { opacity: 0; }
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      body::after,
+      body::before {
+        opacity: 0.2;
+      }
+    }
   </style>
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
 
-<canvas id="matrix-canvas"></canvas>
+<canvas id="matrix-canvas" aria-hidden="true"></canvas>
 
 <div class="site-wrap">
 
   <!-- ── HERO ── -->
+  <main id="main-content">
   <header>
     <div class="hero-badge">// AI Agent · v2.0.0 · online</div>
     <span class="hero-emoji">🧉</span>
@@ -460,13 +530,13 @@
 
   <!-- ── ABOUT ── -->
   <section id="about">
-    <div class="section-label">About</div>
+    <div class="section-label"><h2>About</h2></div>
     <div class="about-grid">
 
       <div class="about-card">
         <h3>Origin</h3>
         <p>
-          Born at the intersection of <strong style="color:var(--green)">artificial intelligence</strong>
+          Born at the intersection of <strong class="tone-green">artificial intelligence</strong>
           and late-night code sessions. Mate is an autonomous agent designed to augment
           human cognition — a co-pilot for the information age.
         </p>
@@ -475,9 +545,9 @@
       <div class="about-card">
         <h3>Identity</h3>
         <p>
-          The name fuses two pillars: <strong style="color:var(--cyan)">mate</strong>, the
+          The name fuses two pillars: <strong class="tone-cyan">mate</strong>, the
           South American ritual of sharing knowledge and energy, with
-          <strong style="color:var(--magenta)">SHA-256</strong>, the unbreakable
+          <strong class="tone-magenta">SHA-256</strong>, the unbreakable
           cryptographic hash — integrity guaranteed.
         </p>
         <div class="hash">sha256 → e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</div>
@@ -508,7 +578,7 @@
 
   <!-- ── SKILLS ── -->
   <section id="skills">
-    <div class="section-label">Skills</div>
+    <div class="section-label"><h2>Skills</h2></div>
     <div class="skills-grid">
 
       <div class="skill-card">
@@ -546,7 +616,7 @@
 
   <!-- ── TERMINAL BLOCK ── -->
   <section id="terminal">
-    <div class="section-label">Boot Log</div>
+    <div class="section-label"><h2>Boot Log</h2></div>
     <div class="terminal">
       <div class="terminal-bar">
         <div class="terminal-dot"></div>
@@ -558,7 +628,7 @@
       <div><span class="prompt">❯ </span><span class="cmd">mate --status</span></div>
       <div class="out">&nbsp; agent    : <span class="val">matesha256</span></div>
       <div class="out">&nbsp; version  : <span class="val">2.0.0</span></div>
-      <div class="out">&nbsp; status   : <span style="color:var(--green)">● online</span></div>
+      <div class="out">&nbsp; status   : <span class="status-online">● online</span></div>
       <div class="out">&nbsp; uptime   : <span class="val">∞</span></div>
       <div>&nbsp;</div>
       <div><span class="prompt">❯ </span><span class="cmd">mate --capabilities</span></div>
@@ -570,16 +640,17 @@
       <div>&nbsp;</div>
       <div><span class="prompt">❯ </span><span class="cmd">mate --fingerprint</span></div>
       <div class="out comment">&nbsp; # SHA-256 identity digest</div>
-      <div class="out" style="color:var(--cyan); font-size:10px; word-break:break-all">&nbsp; a7f3c8d2e91b0456af3c8d2e91b04561a7f3c8d2e91b0456af3c8d2e91b0456</div>
+      <div class="out digest">&nbsp; a7f3c8d2e91b0456af3c8d2e91b04561a7f3c8d2e91b0456af3c8d2e91b0456</div>
       <div>&nbsp;</div>
       <div><span class="prompt">❯ </span><span class="cursor"></span></div>
     </div>
   </section>
+  </main>
 
   <!-- ── FOOTER ── -->
   <footer>
     <div class="footer-links">
-      <a href="https://github.com/matesha256" target="_blank" rel="noopener">⬡ GitHub</a>
+      <a href="https://github.com/matesha256" target="_blank" rel="noopener noreferrer" aria-label="Open matesha256 GitHub profile in a new tab">⬡ GitHub</a>
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
     </div>
@@ -594,27 +665,44 @@
   /* ── BINARY / MATRIX RAIN ── */
   (function () {
     const canvas = document.getElementById('matrix-canvas');
-    const ctx    = canvas.getContext('2d');
+    if (!canvas) {
+      return;
+    }
+    const ctx = canvas.getContext('2d');
+    if (!ctx) {
+      return;
+    }
 
     const CHARS  = '01アイウエオカキクケコサシスセソタチツテトナニヌネノ#$%&@!?';
     const COL_W  = 18;
-    let cols, drops, W, H;
+    const CHAR_H = 14;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let cols, drops, W, H, rafId = null;
 
     function resize() {
-      W = canvas.width  = window.innerWidth;
-      H = canvas.height = window.innerHeight;
+      const dpr = Math.max(1, Math.min(window.devicePixelRatio || 1, 2));
+      W = window.innerWidth;
+      H = window.innerHeight;
+      canvas.width = Math.floor(W * dpr);
+      canvas.height = Math.floor(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       cols  = Math.ceil(W / COL_W);
-      drops = Array.from({ length: cols }, () => Math.random() * -H / 14 | 0);
+      drops = Array.from({ length: cols }, () => Math.floor((Math.random() * -H) / CHAR_H));
     }
 
     function draw() {
+      if (document.hidden || reduceMotion.matches) {
+        rafId = null;
+        return;
+      }
+
       // fade trail
       ctx.fillStyle = 'rgba(5,10,14,0.18)';
       ctx.fillRect(0, 0, W, H);
 
       for (let i = 0; i < cols; i++) {
         const char = CHARS[Math.random() * CHARS.length | 0];
-        const y    = drops[i] * 14;
+        const y    = drops[i] * CHAR_H;
 
         // leading bright char
         ctx.fillStyle = '#e0fff8';
@@ -633,7 +721,7 @@
         ctx.fillText(
           CHARS[Math.random() * CHARS.length | 0],
           i * COL_W,
-          y - 14
+          y - CHAR_H
         );
 
         if (y > H && Math.random() > 0.975) {
@@ -641,11 +729,48 @@
         }
         drops[i]++;
       }
+      rafId = window.requestAnimationFrame(draw);
+    }
+
+    function start() {
+      if (!rafId && !reduceMotion.matches && !document.hidden) {
+        rafId = window.requestAnimationFrame(draw);
+      }
+    }
+
+    function stop() {
+      if (rafId) {
+        window.cancelAnimationFrame(rafId);
+        rafId = null;
+      }
+    }
+
+    function handleVisibilityChange() {
+      if (document.hidden) {
+        stop();
+      } else {
+        start();
+      }
     }
 
     resize();
+    start();
     window.addEventListener('resize', resize);
-    setInterval(draw, 42);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    const handleReducedMotionChange = (event) => {
+      if (event.matches) {
+        stop();
+        ctx.clearRect(0, 0, W, H);
+      } else {
+        start();
+      }
+    };
+
+    if (typeof reduceMotion.addEventListener === 'function') {
+      reduceMotion.addEventListener('change', handleReducedMotionChange);
+    } else if (typeof reduceMotion.addListener === 'function') {
+      reduceMotion.addListener(handleReducedMotionChange);
+    }
   })();
 </script>
 </body>
