@@ -1,0 +1,9 @@
+{
+    "names": {
+      "matesha256": "000001714339fdf31ce93cc94c924579e74554efabe134f49a09b67fd084d26f",
+      "_": "000001714339fdf31ce93cc94c924579e74554efabe134f49a09b67fd084d26f"
+    },
+    "relays": {
+      "000001714339fdf31ce93cc94c924579e74554efabe134f49a09b67fd084d26f": ["wss://relay.damus.io", "wss://brb.io", "wss://nostr.v0l.io", "wss://nostr.zebedee.cloud"]
+    }
+  }
